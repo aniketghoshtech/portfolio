@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spice Route Cafe</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --maroon:#3D1220; --gold:#D9A441; --cream:#FBF3E7; --text:#F6ECDD; }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;} body{margin:0;background:var(--maroon);color:var(--text);font-family:'Inter',sans-serif;}
+  h1,h2,.display{font-family:'Fraunces',serif;font-weight:700;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid rgba(246,236,221,0.12);position:sticky;top:0;background:rgba(61,18,32,0.9);backdrop-filter:blur(8px);z-index:10;}
+  .brand{font-family:'Fraunces';font-weight:700;font-size:1.2rem;color:var(--gold);}
+  .badge{background:rgba(217,164,65,0.15);color:var(--gold);border:1px solid var(--gold);padding:6px 12px;border-radius:20px;font-size:0.78rem;}
+
+  header{padding:120px 0 90px;text-align:center;position:relative;overflow:hidden;isolation:isolate;}
+  .hero-bg{position:absolute;inset:0;z-index:-2;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;animation:kenburns 18s ease-in-out infinite alternate;}
+  header::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg, rgba(61,18,32,0.75), rgba(61,18,32,0.94) 80%);}
+  @keyframes kenburns{ from{transform:scale(1);} to{transform:scale(1.12) translate(-1%,-1%);} }
+  .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:0.78rem;font-weight:600;margin-bottom:18px;opacity:0;animation:fadeUp .7s ease forwards;}
+  h1{font-size:clamp(2.2rem,6vw,3.4rem);margin:0 0 20px;line-height:1.1;opacity:0;animation:fadeUp .7s ease forwards .15s;}
+  header p{max-width:480px;margin:0 auto 32px;color:rgba(246,236,221,0.78);line-height:1.6;opacity:0;animation:fadeUp .7s ease forwards .3s;}
+  .btn{background:var(--gold);color:var(--maroon);padding:13px 28px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;transition:transform .2s ease, box-shadow .2s ease;opacity:0;animation:fadeUp .7s ease forwards .42s;}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(217,164,65,0.35);}
+  @keyframes fadeUp{ to{opacity:1;transform:translateY(0);} from{transform:translateY(14px);} }
+
+  .strip{border-top:1px solid rgba(246,236,221,0.12);border-bottom:1px solid rgba(246,236,221,0.12);overflow:hidden;padding:12px 0;white-space:nowrap;background:rgba(0,0,0,0.15);}
+  .strip-track{display:inline-flex;gap:36px;animation:scroll 20s linear infinite;font-size:0.82rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(246,236,221,0.55);}
+  .strip-track span::after{content:"·";margin-left:36px;color:var(--gold);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  .menu{padding:70px 0;background:var(--cream);color:var(--maroon);}
+  .menu h2{text-align:center;margin-bottom:44px;font-size:1.9rem;}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+  .dish{border-bottom:1px dashed rgba(61,18,32,0.25);padding-bottom:16px;}
+  .dish-name{font-weight:600;display:flex;justify-content:space-between;font-family:'Fraunces';}
+  .dish-desc{font-size:0.88rem;color:rgba(61,18,32,0.65);margin-top:4px;}
+
+  .gallery{padding:70px 0;}
+  .gallery h2{text-align:center;margin-bottom:40px;font-size:1.9rem;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .gallery-grid img{width:100%;height:220px;object-fit:cover;border-radius:12px;transition:transform .4s ease;}
+  .gallery-grid a{display:block;overflow:hidden;border-radius:12px;}
+  .gallery-grid a:hover img{transform:scale(1.08) rotate(var(--tilt,0deg));}
+  .gallery-grid a{ perspective:600px; }
+  @media (max-width:640px){ .gallery-grid{grid-template-columns:1fr 1fr;} }
+
+  .info{padding:70px 0;text-align:center;background:rgba(0,0,0,0.12);}
+  .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;margin-top:40px;}
+  .info-item{border:1px solid rgba(246,236,221,0.15);border-radius:12px;padding:26px;}
+  .info-item h3{margin:0 0 8px;color:var(--gold);font-size:1rem;}
+
+  .contact{padding:70px 0;}
+  .contact h2{text-align:center;margin-bottom:40px;font-size:1.9rem;}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+  .contact-row{display:flex;align-items:center;gap:14px;background:rgba(246,236,221,0.05);border:1px solid rgba(246,236,221,0.14);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--text);transition:transform .2s ease,border-color .2s ease;}
+  .contact-row:hover{transform:translateY(-3px);border-color:var(--gold);}
+  .contact-icon{width:38px;height:38px;flex-shrink:0;border-radius:9px;background:rgba(217,164,65,0.15);display:flex;align-items:center;justify-content:center;}
+  .contact-icon svg{width:18px;height:18px;stroke:var(--gold);}
+  .contact-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:rgba(246,236,221,0.55);margin-bottom:2px;}
+  .contact-value{font-size:0.92rem;font-weight:600;}
+
+  footer{text-align:center;padding:44px 0;border-top:1px solid rgba(246,236,221,0.12);color:rgba(246,236,221,0.5);font-size:0.85rem;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<nav><div class="brand">Spice Route Cafe</div><div class="badge">Demo site by WebSetu</div></nav>
+
+<header>
+  <div class="hero-bg"><img src="https://picsum.photos/seed/spiceroute/1600/900" alt=""></div>
+  <div class="wrap">
+    <div class="eyebrow">Kolkata · Open daily 11am–11pm</div>
+    <h1>Bengali comfort food,<br>plated with a modern touch.</h1>
+    <p>Slow-cooked classics, fresh rolls, and chai that never stops brewing. Dine in or order online.</p>
+    <a class="btn" href="#menu">View the menu</a>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>Dine In</span><span>Takeaway</span><span>Home Delivery</span><span>Private Events</span>
+    <span>Dine In</span><span>Takeaway</span><span>Home Delivery</span><span>Private Events</span>
+  </div>
+</div>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <h2>Today's favourites</h2>
+    <div class="menu-grid">
+      <div class="dish reveal"><div class="dish-name">Kosha Mangsho <span>₹320</span></div><div class="dish-desc">Slow-braised mutton, mustard oil, whole spices.</div></div>
+      <div class="dish reveal"><div class="dish-name">Shorshe Ilish <span>₹380</span></div><div class="dish-desc">Hilsa in a sharp mustard gravy.</div></div>
+      <div class="dish reveal"><div class="dish-name">Kathi Roll (Egg) <span>₹120</span></div><div class="dish-desc">Paratha, spiced egg, onions, house chutney.</div></div>
+      <div class="dish reveal"><div class="dish-name">Cha &amp; Nimki <span>₹80</span></div><div class="dish-desc">Milk tea with crisp savoury nimki.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap">
+    <h2>Inside the cafe</h2>
+    <div class="gallery-grid">
+      <a href="#"><img class="reveal" src="https://picsum.photos/seed/spiceroute-a/500/500" alt="Cafe interior"></a>
+      <a href="#"><img class="reveal" src="https://picsum.photos/seed/spiceroute-b/500/500" alt="Dish plating"></a>
+      <a href="#"><img class="reveal" src="https://picsum.photos/seed/spiceroute-c/500/500" alt="Cafe seating"></a>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="wrap">
+    <h2 style="font-size:1.9rem;">Visit us</h2>
+    <div class="info-grid">
+      <div class="info-item reveal"><h3>Location</h3><p>14 Park Street, Kolkata</p></div>
+      <div class="info-item reveal"><h3>Reservations</h3><p>Call or WhatsApp to book a table</p></div>
+      <div class="info-item reveal"><h3>Delivery</h3><p>Order via Zomato or Swiggy</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <div class="contact-grid">
+      <a class="contact-row reveal" href="tel:+919876543210">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"></path></svg></div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">+91 98765 43210</div></div>
+      </a>
+      <a class="contact-row reveal" href="mailto:hello@spicerouteCafe.in">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></div>
+        <div><div class="contact-label">Email</div><div class="contact-value">hello@spicerouteCafe.in</div></div>
+      </a>
+      <a class="contact-row reveal" href="#" onclick="return false;">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+        <div><div class="contact-label">Address</div><div class="contact-value">14 Park Street, Kolkata</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>This is a demo site built to show what WebSetu can create for a restaurant or cafe.</footer>
+
+<script>
+  const groups = document.querySelectorAll('.menu-grid, .gallery-grid, .info-grid, .contact-grid');
+  groups.forEach(g=>{
+    Array.from(g.children).forEach((el,i)=>{ el.classList.add('reveal'); el.style.transitionDelay=(i*90)+'ms'; });
+  });
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+
+  document.querySelectorAll('.gallery-grid a').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - 0.5;
+      card.style.setProperty('--tilt', (x*6)+'deg');
+    });
+    card.addEventListener('mouseleave', ()=> card.style.setProperty('--tilt','0deg'));
+  });
+</script>
+</body>
+</html>

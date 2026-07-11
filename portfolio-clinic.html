@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarePoint Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --blue:#1B4E63; --sky:#EAF3F4; --teal:#2E8B8B; --charcoal:#1F2A2E; }
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;} body{margin:0;background:#fff;color:var(--charcoal);font-family:'Inter',sans-serif;}
+  h1,h2,.display{font-family:'Source Serif 4',serif;font-weight:700;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid rgba(27,78,99,0.1);position:sticky;top:0;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);z-index:10;}
+  .brand{font-family:'Source Serif 4';font-weight:700;font-size:1.2rem;color:var(--blue);}
+  .badge{background:rgba(46,139,139,0.1);color:var(--teal);border:1px solid var(--teal);padding:6px 12px;border-radius:20px;font-size:0.78rem;}
+
+  header{padding:0;position:relative;overflow:hidden;isolation:isolate;min-height:80vh;display:flex;align-items:center;}
+  .hero-bg{position:absolute;inset:0;z-index:-2;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;animation:kenburns 18s ease-in-out infinite alternate;}
+  header::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg, rgba(234,243,244,0.97) 40%, rgba(234,243,244,0.55));}
+  @keyframes kenburns{ from{transform:scale(1);} to{transform:scale(1.12) translate(-1%,-1%);} }
+  .eyebrow{color:var(--teal);text-transform:uppercase;letter-spacing:2px;font-size:0.76rem;font-weight:600;margin-bottom:18px;opacity:0;animation:fadeUp .7s ease forwards;}
+  h1{font-size:clamp(2.2rem,5.5vw,3.2rem);margin:0 0 20px;line-height:1.15;max-width:600px;opacity:0;animation:fadeUp .7s ease forwards .15s;}
+  header p{max-width:480px;color:rgba(31,42,46,0.7);line-height:1.65;margin:0 0 32px;opacity:0;animation:fadeUp .7s ease forwards .3s;}
+  .btn{background:var(--blue);color:#fff;padding:13px 28px;border-radius:6px;text-decoration:none;font-weight:600;display:inline-block;transition:transform .2s ease,box-shadow .2s ease;opacity:0;animation:fadeUp .7s ease forwards .42s;}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(27,78,99,0.3);}
+  @keyframes fadeUp{ to{opacity:1;transform:translateY(0);} from{transform:translateY(14px);} }
+  header .inner{padding:60px 0;}
+
+  .strip{border-top:1px solid rgba(27,78,99,0.1);border-bottom:1px solid rgba(27,78,99,0.1);overflow:hidden;padding:12px 0;white-space:nowrap;background:var(--sky);}
+  .strip-track{display:inline-flex;gap:36px;animation:scroll 20s linear infinite;font-size:0.82rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(31,42,46,0.55);}
+  .strip-track span::after{content:"·";margin-left:36px;color:var(--teal);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  .doctors{padding:70px 0;}
+  .doctors h2{text-align:center;margin-bottom:44px;font-size:1.9rem;}
+  .doc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;}
+  .doc{border:1px solid rgba(27,78,99,0.12);border-radius:14px;padding:26px;transition:transform .25s ease,box-shadow .25s ease;}
+  .doc:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(0,0,0,0.08);}
+  .doc h3{margin:0 0 4px;color:var(--blue);font-family:'Source Serif 4';font-size:1.1rem;}
+  .doc .spec{color:var(--teal);font-size:0.82rem;font-weight:600;margin-bottom:10px;}
+  .doc p{font-size:0.88rem;color:rgba(31,42,46,0.6);margin:0;}
+
+  .gallery{padding:70px 0;background:var(--sky);}
+  .gallery h2{text-align:center;margin-bottom:40px;font-size:1.9rem;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .gallery-grid img{width:100%;height:220px;object-fit:cover;border-radius:12px;transition:transform .4s ease;}
+  .gallery-grid a{display:block;overflow:hidden;border-radius:12px;}
+  .gallery-grid a:hover img{transform:scale(1.08) rotate(var(--tilt,0deg));}
+  .gallery-grid a{ perspective:600px; }
+  @media (max-width:640px){ .gallery-grid{grid-template-columns:1fr 1fr;} }
+
+  .hours{padding:70px 0;text-align:center;}
+  .hours-grid{display:flex;justify-content:center;gap:40px;margin-top:30px;flex-wrap:wrap;font-size:0.92rem;}
+
+  .contact{padding:70px 0;background:var(--sky);}
+  .contact h2{text-align:center;margin-bottom:40px;font-size:1.9rem;}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
+  .contact-row{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid rgba(27,78,99,0.1);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--charcoal);transition:transform .2s ease,border-color .2s ease;}
+  .contact-row:hover{transform:translateY(-3px);border-color:var(--teal);}
+  .contact-icon{width:38px;height:38px;flex-shrink:0;border-radius:9px;background:rgba(46,139,139,0.1);display:flex;align-items:center;justify-content:center;}
+  .contact-icon svg{width:18px;height:18px;stroke:var(--teal);}
+  .contact-label{font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:rgba(31,42,46,0.5);margin-bottom:2px;}
+  .contact-value{font-size:0.92rem;font-weight:600;}
+
+  footer{text-align:center;padding:44px 0;color:rgba(31,42,46,0.45);font-size:0.85rem;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<nav><div class="brand">CarePoint Clinic</div><div class="badge">Demo site by WebSetu</div></nav>
+
+<header>
+  <div class="hero-bg"><img src="https://picsum.photos/seed/carepoint/1600/900" alt=""></div>
+  <div class="wrap inner">
+    <div class="eyebrow">Multi-speciality clinic · Pune</div>
+    <h1>Trusted care, close to home.</h1>
+    <p>Book a consultation with our doctors in minutes. Walk-in patients accommodated where possible.</p>
+    <a class="btn" href="#doctors">Meet our doctors</a>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>General Medicine</span><span>Dermatology</span><span>Pediatrics</span><span>Diagnostics</span>
+    <span>General Medicine</span><span>Dermatology</span><span>Pediatrics</span><span>Diagnostics</span>
+  </div>
+</div>
+
+<section class="doctors" id="doctors">
+  <div class="wrap">
+    <h2>Our doctors</h2>
+    <div class="doc-grid">
+      <div class="doc reveal"><h3>Dr. Ritu Sharma</h3><div class="spec">General Physician</div><p>MBBS, MD — 12 years experience</p></div>
+      <div class="doc reveal"><h3>Dr. Aman Verma</h3><div class="spec">Dermatologist</div><p>MBBS, DVD — 8 years experience</p></div>
+      <div class="doc reveal"><h3>Dr. Kavita Rao</h3><div class="spec">Pediatrician</div><p>MBBS, MD — 15 years experience</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap">
+    <h2>Inside CarePoint</h2>
+    <div class="gallery-grid">
+      <a href="#"><img class="reveal" src="https://picsum.photos/seed/carepoint-a/500/500" alt="Waiting area"></a>
+      <a href="#"><img class="reveal" src="https://picsum.photos/seed/carepoint-b/500/500" alt="Consultation room"></a>
+      <a href="#"><img class="reveal" src="https://picsum.photos/seed/carepoint-c/500/500" alt="Reception"></a>
+    </div>
+  </div>
+</section>
+
+<section class="hours">
+  <div class="wrap">
+    <h2 style="font-size:1.9rem;">Clinic timings</h2>
+    <div class="hours-grid">
+      <div><strong>Mon–Sat</strong><br>9:00 AM – 8:00 PM</div>
+      <div><strong>Sunday</strong><br>10:00 AM – 2:00 PM</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Get in touch</h2>
+    <div class="contact-grid">
+      <a class="contact-row reveal" href="tel:+919876511111">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"></path></svg></div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">+91 98765 11111</div></div>
+      </a>
+      <a class="contact-row reveal" href="mailto:care@carepointclinic.in">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></div>
+        <div><div class="contact-label">Email</div><div class="contact-value">care@carepointclinic.in</div></div>
+      </a>
+      <a class="contact-row reveal" href="#" onclick="return false;">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+        <div><div class="contact-label">Address</div><div class="contact-value">FC Road, Pune</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>This is a demo site built to show what WebSetu can create for a clinic.</footer>
+
+<script>
+  const groups = document.querySelectorAll('.doc-grid, .gallery-grid, .contact-grid');
+  groups.forEach(g=>{
+    Array.from(g.children).forEach((el,i)=>{ el.classList.add('reveal'); el.style.transitionDelay=(i*90)+'ms'; });
+  });
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  els.forEach(el=>io.observe(el));
+
+  document.querySelectorAll('.gallery-grid a').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - 0.5;
+      card.style.setProperty('--tilt', (x*6)+'deg');
+    });
+    card.addEventListener('mouseleave', ()=> card.style.setProperty('--tilt','0deg'));
+  });
+</script>
+</body>
+</html>

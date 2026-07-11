@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebSetu — Websites for local businesses, built this week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D1117;
+    --panel:#141A22;
+    --panel-light:#F4F1EA;
+    --amber:#E3A64A;
+    --mint:#3FC896;
+    --text:#ECEDEE;
+    --text-dim:rgba(236,237,238,0.66);
+    --charcoal:#23262B;
+    --line: rgba(236,237,238,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(13,17,23,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;}
+  .brand{font-family:'Fraunces';font-weight:600;font-size:1.25rem;letter-spacing:0.2px;display:flex;align-items:center;gap:10px;}
+  .brand .dot{color:var(--amber);}
+  .logo-mark{
+    width:30px;height:30px;
+    animation: bob 4s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-4px) rotate(3deg); }
+  }
+  .fade-in-up{
+    opacity:0; transform:translateY(14px);
+    animation: fadeInUp .7s ease forwards;
+  }
+  @keyframes fadeInUp{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .nav-links{display:flex;gap:30px;font-size:0.92rem;font-weight:500;}
+  .nav-links a{opacity:0.7;text-decoration:none;transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--amber);color:var(--ink);
+    padding:10px 20px;border-radius:7px;font-weight:600;font-size:0.88rem;
+    text-decoration:none;
+    transition: filter .2s ease, transform .2s ease;
+  }
+  .nav-cta:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* HERO */
+  header.hero{
+    padding:110px 0 80px;
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero-bg{ position:absolute; inset:0; z-index:-2; }
+  .hero-bg img{ width:100%; height:100%; object-fit:cover; animation: kenburns 20s ease-in-out infinite alternate; opacity:0.55; }
+  @keyframes kenburns{
+    from{ transform:scale(1) translate(0,0); }
+    to{ transform:scale(1.12) translate(-1.5%,-1.5%); }
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; inset:0; z-index:-1;
+    background:
+      linear-gradient(180deg, rgba(13,17,23,0.75), rgba(13,17,23,0.96) 85%),
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(227,166,74,0.14), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 30%, rgba(63,200,150,0.10), transparent 60%);
+    pointer-events:none;
+    animation: driftGlow 10s ease-in-out infinite alternate;
+  }
+  @keyframes driftGlow{
+    from{ transform: translate(0,0) scale(1); }
+    to{ transform: translate(2%, -2%) scale(1.05); }
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:0.76rem;text-transform:uppercase;letter-spacing:1.8px;
+    color:var(--amber);font-weight:600;margin-bottom:24px;
+    font-family:'Inter';
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber);}
+
+  h1.headline{
+    font-size:clamp(2.4rem, 5.5vw, 4rem);
+    line-height:1.08;
+    max-width:760px;
+    margin:0 0 24px;
+    font-weight:600;
+    letter-spacing:-0.5px;
+  }
+  h1.headline .accent{ color:var(--amber); font-style:italic; }
+
+  .hero p.sub{
+    font-family:'Inter';
+    font-size:1.08rem;
+    color:var(--text-dim);
+    max-width:520px;
+    line-height:1.65;
+    margin:0 0 36px;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px;}
+  .btn-primary{
+    background:var(--amber);color:var(--ink);
+    padding:14px 26px;border-radius:8px;font-weight:600;
+    text-decoration:none;font-size:0.98rem;
+    display:inline-block;
+    transition:transform .18s ease, filter .18s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); filter:brightness(1.06);}
+  .btn-ghost{
+    border:1.5px solid var(--line);
+    padding:14px 26px;border-radius:8px;font-weight:500;
+    text-decoration:none;font-size:0.98rem;color:var(--text);
+    display:inline-block;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{ border-color:rgba(236,237,238,0.3); background:rgba(255,255,255,0.03); }
+
+  .marquee{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    padding:16px 0;
+    white-space:nowrap;
+  }
+  .marquee-track{
+    display:inline-flex;
+    gap:44px;
+    animation:scroll 26s linear infinite;
+    font-family:'Inter';
+    font-weight:500;
+    font-size:0.92rem;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+  }
+  .marquee-track span::after{content:"·";margin-left:44px;color:var(--amber);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* SECTIONS shared */
+  section{padding:96px 0;}
+  .section-tag{
+    font-size:0.76rem;text-transform:uppercase;letter-spacing:1.8px;
+    color:var(--mint); font-weight:600; margin-bottom:14px;
+  }
+  .section-title{
+    font-size:clamp(1.7rem,3vw,2.3rem);
+    margin:0 0 16px;
+    font-weight:600;
+    letter-spacing:-0.3px;
+  }
+  .section-desc{
+    color:var(--text-dim);
+    max-width:560px;
+    line-height:1.65;
+    margin:0 0 52px;
+    font-size:1rem;
+    font-family:'Inter';
+  }
+
+  .light{background:var(--panel-light);color:var(--charcoal);}
+  .light .section-desc{color:rgba(35,38,43,0.65);}
+  .light .section-tag{color:#2E8B63;}
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:20px;
+  }
+  .signcard{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:30px 26px;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .light .signcard{ background:#FFFFFF; border-color:rgba(35,38,43,0.08); }
+  .signcard:hover{transform:translateY(-4px); border-color:rgba(227,166,74,0.4); box-shadow:0 16px 32px rgba(0,0,0,0.18);}
+  .signcard .icon{font-size:1.7rem;margin-bottom:16px;display:block;}
+  .signcard h3{font-size:1.12rem;margin:0 0 10px;color:var(--amber);font-weight:600;}
+  .signcard p{font-size:0.92rem;line-height:1.6;color:var(--text-dim);margin:0;}
+  .light .signcard p{color:rgba(35,38,43,0.65);}
+
+  /* PROCESS */
+  .process-list{display:flex;flex-direction:column;border-top:1px solid var(--line);}
+  .process-row{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:20px;
+    padding:28px 0;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .process-num{
+    font-family:'Fraunces';font-weight:600;font-size:1.5rem;color:var(--mint);
+  }
+  .process-row h3{margin:0 0 6px;font-size:1.1rem;font-weight:600;}
+  .process-row p{margin:0;color:var(--text-dim);font-size:0.94rem;line-height:1.6;max-width:520px;font-family:'Inter';}
+
+  /* PRICING */
+  .price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;}
+  .price-card{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:32px 28px;
+    background:var(--panel);
+  }
+  .price-card.highlight{
+    border-color:var(--amber);
+    background:linear-gradient(180deg, rgba(227,166,74,0.07), rgba(227,166,74,0.015));
+  }
+  .price-card h3{margin:0 0 8px;font-size:1.08rem;color:var(--amber);font-weight:600;}
+  .price-amount{font-family:'Fraunces';font-size:2.1rem;font-weight:600;margin:8px 0 2px;}
+  .price-amount span{font-size:0.92rem;font-weight:400;color:var(--text-dim);font-family:'Inter';}
+  .price-monthly{font-size:0.95rem;color:var(--mint);font-weight:600;margin:4px 0 0;font-family:'Inter';}
+  .price-card ul{padding-left:18px;margin:20px 0 0;font-size:0.88rem;line-height:2;color:var(--text-dim);font-family:'Inter';}
+
+  /* WHY */
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;}
+  .why-item h3{font-size:1rem;margin:0 0 8px;color:#2E8B63;font-weight:600;}
+  .why-item p{margin:0;font-size:0.92rem;line-height:1.65;color:rgba(35,38,43,0.65);font-family:'Inter';}
+
+  /* PORTFOLIO */
+  .pf-loop{ overflow:hidden; margin-bottom:40px; border-radius:14px; }
+  .pf-loop-track{ display:inline-flex; gap:14px; animation: pfscroll 24s linear infinite; }
+  .pf-loop-track img{ width:220px; height:130px; object-fit:cover; border-radius:12px; flex-shrink:0; }
+  @keyframes pfscroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .portfolio-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:20px;
+  }
+  .portfolio-card{
+    display:block;
+    text-decoration:none;
+    color:var(--charcoal);
+    background:#fff;
+    border:1px solid rgba(35,38,43,0.08);
+    border-radius:14px;
+    overflow:hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .portfolio-card:hover{ transform:translateY(-5px); box-shadow:0 18px 34px rgba(0,0,0,0.14); }
+  .portfolio-swatch{
+    height:110px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces';font-weight:600;font-size:1.4rem;color:#fff;
+  }
+  .portfolio-card .pf-body{ padding:20px 22px 24px; }
+  .portfolio-card h3{ margin:0 0 6px; font-size:1.05rem; font-weight:600; font-family:'Inter'; }
+  .portfolio-card p{ margin:0 0 12px; font-size:0.86rem; color:rgba(35,38,43,0.6); }
+  .portfolio-card .pf-link{ font-size:0.84rem; font-weight:600; color:#2E8B63; }
+  .pf-details{ margin-top:14px; border-top:1px solid rgba(35,38,43,0.08); padding-top:12px; }
+  .pf-details summary{ cursor:pointer; font-size:0.82rem; font-weight:600; color:var(--charcoal); list-style:none; display:flex; align-items:center; gap:6px; }
+  .pf-details summary::-webkit-details-marker{ display:none; }
+  .pf-details summary::after{ content:"▾"; font-size:0.7rem; transition:transform .2s ease; }
+  .pf-details[open] summary::after{ transform:rotate(180deg); }
+  .pf-details ul{ margin:10px 0 0; padding-left:18px; font-size:0.82rem; color:rgba(35,38,43,0.65); line-height:1.8; }
+
+  /* PORTFOLIO MODAL VIEWER */
+  .pf-modal{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(8,10,14,0.85);
+    backdrop-filter:blur(6px);
+    display:none;
+    align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .pf-modal.open{ display:flex; opacity:1; }
+  .pf-modal-frame{
+    width:100%; max-width:1100px; height:88vh;
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    transform:translateY(24px) scale(0.98);
+    transition:transform .3s ease;
+  }
+  .pf-modal.open .pf-modal-frame{ transform:translateY(0) scale(1); }
+  .pf-modal-frame iframe{ position:absolute; top:42px; left:0; right:0; bottom:0; width:100%; height:calc(100% - 42px); border:none; display:block; }
+  .pf-modal-close{
+    position:absolute; top:14px; right:14px; z-index:2;
+    width:38px; height:38px; border-radius:50%;
+    background:var(--ink); color:var(--text);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1.1rem;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .pf-modal-close:hover{ background:var(--amber); color:var(--ink); transform:rotate(90deg); }
+  .pf-modal-bar{
+    position:absolute; top:0; left:0; right:0; height:42px;
+    padding:0 60px 0 18px;
+    background:var(--ink); color:var(--text);
+    font-family:'Inter'; font-size:0.85rem; font-weight:600;
+    display:flex; align-items:center; gap:8px;
+    z-index:1;
+  }
+  .pf-modal-bar span.tag{ color:var(--amber); font-weight:700; }
+
+  /* CONTACT */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:16px;
+  }
+  .contact-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+    text-decoration:none;
+    color:var(--text);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  a.contact-row:hover{
+    transform:translateY(-3px);
+    border-color:rgba(227,166,74,0.45);
+    box-shadow:0 12px 26px rgba(0,0,0,0.22);
+  }
+  .contact-icon{
+    width:42px;height:42px;flex-shrink:0;
+    border-radius:10px;
+    background:rgba(227,166,74,0.12);
+    display:flex;align-items:center;justify-content:center;
+    transition: transform .3s ease, background .3s ease;
+  }
+  .contact-row:hover .contact-icon{ transform:scale(1.1) rotate(-4deg); background:rgba(227,166,74,0.2); }
+  .contact-icon svg{ width:20px;height:20px; stroke:var(--amber); }
+  .contact-label{ font-size:0.74rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-dim); margin-bottom:3px; font-family:'Inter'; }
+  .contact-value{ font-size:0.98rem; font-weight:600; font-family:'Inter'; }
+
+  /* CTA FOOTER */
+  footer{
+    padding:100px 0 50px;
+    text-align:center;
+    background:var(--ink);
+  }
+  footer h2{font-size:clamp(1.9rem,4vw,2.6rem);margin:0 0 20px;}
+  footer p.sub{max-width:440px;margin:0 auto 36px;color:var(--text-dim);font-family:'Inter';}
+  .foot-meta{
+    margin-top:74px;padding-top:26px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:0.82rem;color:rgba(236,237,238,0.4);font-family:'Inter';
+  }
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .marquee-track{animation:none;}
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 22C4 22 9 12 16 12C23 12 28 22 28 22" stroke="#E3A64A" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="7" cy="24" r="2.4" fill="#3FC896"/>
+        <circle cx="25" cy="24" r="2.4" fill="#3FC896"/>
+        <circle cx="16" cy="9" r="2.6" fill="#E3A64A"/>
+      </svg>
+      WebSetu<span class="dot">.</span>
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#why">Why us</a>
+      <a href="#portfolio">Portfolio</a>
+    </div>
+    <a class="nav-cta" href="https://wa.me/918515830833" target="_blank" rel="noopener">Get a free demo</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"><img src="https://picsum.photos/seed/websetu-hero/1800/1000" alt=""></div>
+  <div class="wrap">
+    <div class="eyebrow fade-in-up" style="animation-delay:.05s">Local business websites, done right</div>
+    <h1 class="headline fade-in-up" style="animation-delay:.15s">Your shop deserves a website that actually <span class="accent">brings customers in.</span></h1>
+    <p class="sub fade-in-up" style="animation-delay:.28s">Restaurants, salons, clinics and every business in between. One-time build cost, a small monthly upkeep fee, and a site that works for you every day.</p>
+    <div class="hero-ctas fade-in-up" style="animation-delay:.4s">
+      <a class="btn-primary" href="https://wa.me/918515830833" target="_blank" rel="noopener">Get a free demo</a>
+      <a class="btn-ghost" href="#pricing">See pricing</a>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Restaurants</span><span>Salons &amp; Spas</span><span>Clinics</span><span>Gyms</span><span>Boutiques</span><span>Cafes</span>
+      <span>Restaurants</span><span>Salons &amp; Spas</span><span>Clinics</span><span>Gyms</span><span>Boutiques</span><span>Cafes</span>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="light">
+  <div class="wrap">
+    <div class="section-tag">What we build</div>
+    <h2 class="section-title">A site for every kind of shopfront</h2>
+    <p class="section-desc">Every business is different, but every owner wants the same thing — a site customers can find, trust, and book from.</p>
+    <div class="card-grid">
+      <div class="signcard">
+        <span class="icon">🍽️</span>
+        <h3>Restaurants &amp; Cafes</h3>
+        <p>Menu, hours, location and online ordering links, built to load fast on a customer's phone while they're standing outside.</p>
+      </div>
+      <div class="signcard">
+        <span class="icon">💇</span>
+        <h3>Salons &amp; Spas</h3>
+        <p>Service list, pricing, and a booking button front and centre, so appointments come in without a phone call.</p>
+      </div>
+      <div class="signcard">
+        <span class="icon">🩺</span>
+        <h3>Clinics</h3>
+        <p>Doctor profiles, timings, and a clear way to book a consultation — presented the way patients expect from a trustworthy clinic.</p>
+      </div>
+      <div class="signcard">
+        <span class="icon">🤖</span>
+        <h3>AI Agents</h3>
+        <p>A round-the-clock AI agent that answers customer questions, captures leads, and books appointments on WhatsApp.</p>
+      </div>
+      <div class="signcard">
+        <span class="icon">🛍️</span>
+        <h3>...and more</h3>
+        <p>Gyms, boutiques, tuition centres, real estate agents — if it's a local business, we've got a template that fits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-tag">How it works</div>
+    <h2 class="section-title">From first call to live site, in five steps</h2>
+    <p class="section-desc">No long back-and-forth, no waiting weeks on a developer. Here's exactly what happens after you sign up.</p>
+    <div class="process-list">
+      <div class="process-row">
+        <div class="process-num">01</div>
+        <div><h3>A 15-minute call</h3><p>We learn about your business, your services, and what you want customers to do on the site.</p></div>
+      </div>
+      <div class="process-row">
+        <div class="process-num">02</div>
+        <div><h3>You review and request changes</h3><p>We send a live preview link. Tell us what to tweak — colours, text, layout — and we update it the same day.</p></div>
+      </div>
+      <div class="process-row">
+        <div class="process-num">03</div>
+        <div><h3>We go live</h3><p>Your site is deployed on fast, reliable hosting with your own domain name connected.</p></div>
+      </div>
+      <div class="process-row">
+        <div class="process-num">04</div>
+        <div><h3>We keep it running</h3><p>Hosting, updates, and support are covered under your monthly plan — you focus on the business.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-tag">Pricing</div>
+    <h2 class="section-title">One-time build cost, plus a small monthly upkeep fee</h2>
+    <p class="section-desc">You pay once to get your site built, and a flat ₹1,499/month keeps it hosted, updated, and supported.</p>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>One Page</h3>
+        <div class="price-amount">₹25,000 <span>one-time</span></div>
+        <div class="price-monthly">+ ₹1,499/month upkeep</div>
+        <ul>
+          <li>Single-page site</li>
+          <li>Menu / service list</li>
+          <li>WhatsApp contact button</li>
+          <li>Hosting &amp; domain included</li>
+          <li>Ongoing support &amp; updates</li>
+        </ul>
+      </div>
+      <div class="price-card highlight">
+        <h3>Full Website</h3>
+        <div class="price-amount">₹40,000 <span>one-time</span></div>
+        <div class="price-monthly">+ ₹1,499/month upkeep</div>
+        <ul>
+          <li>Multi-page site</li>
+          <li>Online booking / ordering links</li>
+          <li>Google Maps &amp; reviews embed</li>
+          <li>Razorpay payment integration</li>
+          <li>Ongoing support &amp; updates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="light">
+  <div class="wrap">
+    <div class="section-tag">Why local businesses choose us</div>
+    <h2 class="section-title">Built for how small businesses actually operate</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <h3>Live in days</h3>
+        <p>Most sites go from first call to fully live within a week — no lengthy design cycles.</p>
+      </div>
+      <div class="why-item">
+        <h3>Priced for local budgets</h3>
+        <p>A one-time build cost and a low monthly upkeep fee — nothing that eats into your margins.</p>
+      </div>
+      <div class="why-item">
+        <h3>Talk to us on WhatsApp</h3>
+        <p>No ticketing systems. Send a message, get a reply, get your change made.</p>
+      </div>
+      <div class="why-item">
+        <h3>Payments built in</h3>
+        <p>Razorpay integration means your customers can pay online from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="light">
+  <div class="wrap">
+    <div class="section-tag">My work</div>
+    <h2 class="section-title">A sample site for every kind of business</h2>
+    <p class="section-desc">Real examples of what we build — tap any card to open the live demo.</p>
+    <div class="pf-loop">
+      <div class="pf-loop-track">
+        <img src="https://picsum.photos/seed/spiceroute-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/bloom-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/carepoint-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/ascent-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/novadesk/440/260" alt="">
+        <img src="https://picsum.photos/seed/spiceroute-b/440/260" alt="">
+        <img src="https://picsum.photos/seed/bloom-b/440/260" alt="">
+        <img src="https://picsum.photos/seed/carepoint-b/440/260" alt="">
+        <img src="https://picsum.photos/seed/ascent-b/440/260" alt="">
+        <img src="https://picsum.photos/seed/novadesk/440/260" alt="">
+        <img src="https://picsum.photos/seed/spiceroute-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/bloom-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/carepoint-a/440/260" alt="">
+        <img src="https://picsum.photos/seed/ascent-a/440/260" alt="">
+      </div>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <a href="#" onclick="openPortfolio('portfolio-restaurant.html','Spice Route Cafe — Restaurant &amp; Cafe demo');return false;" style="text-decoration:none;color:inherit;cursor:pointer;">
+          <div class="portfolio-swatch" style="background:linear-gradient(135deg,#3D1220,#6B2436);">Spice Route Cafe</div>
+          <div class="pf-body" style="padding-bottom:8px;">
+            <h3>Restaurants &amp; Cafes</h3>
+            <p>Menu, hours, and online ordering built for a Kolkata cafe.</p>
+            <span class="pf-link">View demo →</span>
+          </div>
+        </a>
+        <div class="pf-body" style="padding-top:0;">
+          <details class="pf-details">
+            <summary>View highlights</summary>
+            <ul><li>Full menu with pricing</li><li>Gallery of dishes &amp; interior</li><li>Reservations &amp; delivery links</li></ul>
+          </details>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <a href="#" onclick="openPortfolio('portfolio-salon.html','Bloom Salon &amp; Spa demo');return false;" style="text-decoration:none;color:inherit;cursor:pointer;">
+          <div class="portfolio-swatch" style="background:linear-gradient(135deg,#C88E88,#7C8B6F);">Bloom Salon &amp; Spa</div>
+          <div class="pf-body" style="padding-bottom:8px;">
+            <h3>Salons &amp; Spas</h3>
+            <p>Services, pricing, and booking for a Mumbai salon.</p>
+            <span class="pf-link">View demo →</span>
+          </div>
+        </a>
+        <div class="pf-body" style="padding-top:0;">
+          <details class="pf-details">
+            <summary>View highlights</summary>
+            <ul><li>Service menu with pricing</li><li>Photo gallery of the salon</li><li>WhatsApp booking button</li></ul>
+          </details>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <a href="#" onclick="openPortfolio('portfolio-clinic.html','CarePoint Clinic demo');return false;" style="text-decoration:none;color:inherit;cursor:pointer;">
+          <div class="portfolio-swatch" style="background:linear-gradient(135deg,#1B4E63,#2E8B8B);">CarePoint Clinic</div>
+          <div class="pf-body" style="padding-bottom:8px;">
+            <h3>Clinics</h3>
+            <p>Doctor profiles and appointment info for a Pune clinic.</p>
+            <span class="pf-link">View demo →</span>
+          </div>
+        </a>
+        <div class="pf-body" style="padding-top:0;">
+          <details class="pf-details">
+            <summary>View highlights</summary>
+            <ul><li>Doctor profiles &amp; specialities</li><li>Clinic timings &amp; location</li><li>Consultation booking</li></ul>
+          </details>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <a href="#" onclick="openPortfolio('portfolio-coaching.html','Ascent Coaching Classes demo');return false;" style="text-decoration:none;color:inherit;cursor:pointer;">
+          <div class="portfolio-swatch" style="background:linear-gradient(135deg,#101B33,#B8791E);">Ascent Coaching</div>
+          <div class="pf-body" style="padding-bottom:8px;">
+            <h3>Coaching Centres</h3>
+            <p>Courses, fees, and results for a JEE/NEET coaching centre.</p>
+            <span class="pf-link">View demo →</span>
+          </div>
+        </a>
+        <div class="pf-body" style="padding-top:0;">
+          <details class="pf-details">
+            <summary>View highlights</summary>
+            <ul><li>Course list with fees</li><li>Track record &amp; results</li><li>Admissions contact details</li></ul>
+          </details>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <a href="#" onclick="openPortfolio('portfolio-ai-agent.html','NovaDesk AI — AI Agent demo');return false;" style="text-decoration:none;color:inherit;cursor:pointer;">
+          <div class="portfolio-swatch" style="background:linear-gradient(135deg,#0B0B14,#7C5CFC);">NovaDesk AI</div>
+          <div class="pf-body" style="padding-bottom:8px;">
+            <h3>AI Agents</h3>
+            <p>A live, working chat agent that answers questions and books demos.</p>
+            <span class="pf-link">View demo →</span>
+          </div>
+        </a>
+        <div class="pf-body" style="padding-top:0;">
+          <details class="pf-details">
+            <summary>View highlights</summary>
+            <ul><li>Try the live chat widget yourself</li><li>Instant replies, lead capture, handoff</li><li>Works on WhatsApp &amp; your website</li></ul>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-tag">Get in touch</div>
+    <h2 class="section-title">Let's build yours.</h2>
+    <p class="section-desc">Tell us about your business and we'll send a free preview of what your site could look like — no commitment.</p>
+    <div class="contact-grid">
+      <div class="contact-row" style="cursor:default;">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+        <div><div class="contact-label">Name</div><div class="contact-value">ANIKET GHOSH</div></div>
+      </div>
+      <a class="contact-row" href="#" onclick="openApp('whatsapp://send?phone=918016314064','https://wa.me/918016314064');return false;">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.36 7.56L3 20l1.05-5.4A8.5 8.5 0 1 1 21 11.5z"></path><path d="M8.5 10.5c.3 2 2.2 3.9 4.2 4.2"></path></svg></div>
+        <div><div class="contact-label">WhatsApp</div><div class="contact-value">+91 8016314064</div></div>
+      </a>
+      <a class="contact-row" href="mailto:aniketghosh.tech@gmail.com">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></div>
+        <div><div class="contact-label">Email</div><div class="contact-value">aniketghosh.tech@gmail.com</div></div>
+      </a>
+      <a class="contact-row" href="https://insta.openinapp.co/h0lyd" target="_blank" rel="noopener">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></div>
+        <div><div class="contact-label">Instagram</div><div class="contact-value">@aniketghosh.tech</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-meta">
+      <span>WebSetu — websites for local businesses</span>
+      <span>Made in India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function openApp(appUrl, webUrl){
+    const start = Date.now();
+    window.location = appUrl;
+    setTimeout(function(){
+      if(Date.now() - start < 1500 && !document.hidden){
+        window.location = webUrl;
+      }
+    }, 700);
+  }
+</script>
+
+<script>
+  const groups = document.querySelectorAll('.card-grid, .process-list, .price-grid, .why-grid');
+  groups.forEach(group => {
+    const items = group.querySelectorAll('.signcard, .process-row, .price-card, .why-item');
+    items.forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i * 80) + 'ms';
+    });
+  });
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+<div class="pf-modal" id="pfModal">
+  <div class="pf-modal-frame">
+    <div class="pf-modal-bar"><span class="tag">WebSetu</span> · <span id="pfModalTitle">Portfolio demo</span></div>
+    <div class="pf-modal-close" onclick="closePortfolio()">✕</div>
+    <iframe id="pfModalFrame" src=""></iframe>
+  </div>
+</div>
+
+<script>
+  function openPortfolio(url, title){
+    document.getElementById('pfModalFrame').src = url;
+    document.getElementById('pfModalTitle').innerHTML = title;
+    document.getElementById('pfModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePortfolio(){
+    document.getElementById('pfModal').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(()=>{ document.getElementById('pfModalFrame').src = ''; }, 300);
+  }
+  document.getElementById('pfModal').addEventListener('click', function(e){
+    if(e.target === this) closePortfolio();
+  });
+</script>
+
+</body>
+</html>
